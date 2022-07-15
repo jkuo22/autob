@@ -17,6 +17,6 @@ for _ in range(3):
 
 Customer('gorich1688', '阿勇', base=4, billday=days[21])
 Customer('grace', 'Grace', adv=1, billday=days[10])
-Customer('hamburger', 'Hamburger', base=1, adv=2, billday=days[15])
+#Customer('hamburger', 'Hamburger', base=1, adv=2, billday=days[15])
 Customer('gao', 'Gao', base=1, billday=days[6])
 Customer('autobilling_test', '自動繳費單測試', base=1, adv=1, billday=today)
