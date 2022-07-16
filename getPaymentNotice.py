@@ -103,9 +103,9 @@ def rtnPaymentType( url, data, session, customer ):
     findAll_input = [ tag.attrs for tag in soup.find_all(name='input') ]
     data = cleansingStrategy['simple']( findAll_input )
 
-    with open(f'json/rtnPaymentType_data_{customer.name}.json', 'w') as file:
-        import json
-        json.dump( data, file, indent=4, ensure_ascii=False )
+    #with open(f'json/rtnPaymentType_data_{customer.name}.json', 'w') as file:
+    #    import json
+    #    json.dump( data, file, indent=4, ensure_ascii=False )
 
     return action_url, data
 
