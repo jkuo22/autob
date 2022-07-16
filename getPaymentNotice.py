@@ -16,12 +16,13 @@ logger = logging.getLogger( "ecpay" )
 def cleansing( dictList ):
     data = {}
     for item in dictList:
-        try: data.update( {item['name'] : item['value']} )
-        except KeyError as e:
-            try: data.update( {item['name'] : item.get('value','0')} )
+        #try: data.update( {item['name'] : item['value']} )
+        #except KeyError as e:
+            try:
+                data.update( {item['name'] : item.get('value','0')} )
             except KeyError as e:
                 data.update( {item['id'] : item['value']} )
-        except: raise
+        #except: raise
     return data
 
 def simpleCleansing( findAll_input ):
