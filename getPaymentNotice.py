@@ -37,8 +37,8 @@ cleansingStrategy = {
 def logging_filing_html( function, response ):
     """ logging whether the function get called and write html file. """
     logger.info('"%s" called, getting %s', function.__name__, response.url )
-    with open( f'html/{function.__name__}.html', 'w' ) as file:
-        file.write( response.text )
+    #with open( f'html/{function.__name__}.html', 'w' ) as file:
+    #    file.write( response.text )
 
 def getSoup( url, session, func, data ):
     if data:
@@ -61,9 +61,9 @@ def addShippingAddress( url, session, customer ):
         data.update( customer.autoBillingData )
     allPayTradeNo = data["AllPayTradeNo"]
 
-    with open(f'json/addShippingAddress_data_{customer.name}.json','w') as file:
-        import json
-        json.dump( data, file, indent=4, ensure_ascii=False )
+    #with open(f'json/addShippingAddress_data_{customer.name}.json','w') as file:
+    #    import json
+    #    json.dump( data, file, indent=4, ensure_ascii=False )
 
     return respQuickPay.url, data, allPayTradeNo
 
