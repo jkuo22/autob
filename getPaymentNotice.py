@@ -40,7 +40,7 @@ def logging_filing_html( function, response ):
     #with open( f'html/{function.__name__}.html', 'w' ) as file:
     #    file.write( response.text )
 
-def getSoup( url, session, func, data ):
+def getSoup( url, session, func, data=None ):
     if data:
         response = session.post( url, data )
     else:
@@ -49,7 +49,7 @@ def getSoup( url, session, func, data ):
     return response, htmlParser( response.text )
 
 def addShippingAddress( url, session, customer ):
-    respQuickPay, soup = getSoup( url, session, addShippingAddress, data=None )
+    respQuickPay, soup = getSoup( url, session, addShippingAddress )
 
     inputORselect = re.compile( "input|select" )
     tagAttrs = [ tag.attrs for tag in soup.find_all( name=inputORselect) ]
