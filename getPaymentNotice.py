@@ -40,12 +40,18 @@ def logging_filing_html( function, response ):
     with open( f'html/{function.__name__}.html', 'w' ) as file:
         file.write( response.text )
 
+def getSoup( url, session, func, data ):
+    if data:
+        response = session.post( url, data )
+    else:
+        response = session.get( url )
+    logging_filing_html( func, response )
+    return response, htmlParser( response.text )
+
 def addShippingAddress( url, session, customer ):
-    respQuickPay = session.get( url )
-    logging_filing_html( addShippingAddress, respQuickPay )
+    respQuickPay, soup = getSoup( url, session, addShippingAddress, data=None )
 
     inputORselect = re.compile( "input|select" )
-    soup = htmlParser( respQuickPay.text )
     tagAttrs = [ tag.attrs for tag in soup.find_all( name=inputORselect) ]
 
     data = cleansingStrategy['detail']( tagAttrs )
@@ -59,25 +65,20 @@ def addShippingAddress( url, session, customer ):
         import json
         json.dump( data, file, indent=4, ensure_ascii=False )
 
-    return respQuickPay, data, allPayTradeNo
+    return respQuickPay.url, data, allPayTradeNo
 
-def doAutoSubmitForm( respQuickPay, data, session ):
-    response = session.post( respQuickPay.url, data )
-    logging_filing_html( doAutoSubmitForm, response )
+def doAutoSubmitForm( url, data, session ):
+    response, soup = getSoup( url, session, doAutoSubmitForm, data=data )
 
-    soup = htmlParser( response.text )
     action_url = soup.find(name="form").attrs['action']
     findAll_input = [ tag.attrs for tag in soup.find_all(name="input") ]
     data = cleansingStrategy['detail']( findAll_input )
     return action_url, data
 
-def aioCheckout( action_url, data, session ):
-    response = session.post( action_url, data )
-    logging_filing_html( aioCheckout, response )
+def aioCheckout( url, data, session ):
+    response, soup = getSoup( url, session, aioCheckout, data=data )
 
-    soup = htmlParser( response.text )
     action = soup.find(name='form').attrs['action']
-
     findAll_input = [ tag.attrs for tag in soup.find_all(name='input') ]
     data = cleansingStrategy['simple']( findAll_input )
 
@@ -95,11 +96,9 @@ def aioCheckout( action_url, data, session ):
     action_url = ecpayData['CurrentDomain'] + action
     return action_url, data
 
-def rtnPaymentType( action_url, data, session, customer ):
-    response = session.post( action_url , data )
-    logging_filing_html( rtnPaymentType, response )
+def rtnPaymentType( url, data, session, customer ):
+    response, soup = getSoup( url, session, rtnPaymentType, data=data )
 
-    soup = htmlParser( response.text )
     action_url = soup.find(name='form').attrs['action']
     findAll_input = [ tag.attrs for tag in soup.find_all(name='input') ]
     data = cleansingStrategy['simple']( findAll_input )
@@ -110,11 +109,9 @@ def rtnPaymentType( action_url, data, session, customer ):
 
     return action_url, data
 
-def barcodePaymentInfo( action_url, data, session ):
-    response = session.post( action_url, data )
-    logging_filing_html( barcodePaymentInfo, response )
+def barcodePaymentInfo( url, data, session ):
+    response, soup = getSoup( url, session, barcodePaymentInfo, data=data )
 
-    soup = htmlParser( response.text )
     src = soup.find(name="iframe").attrs['src']
     base_url = response.url.strip( response.request.path_url )
     return ''.join( (base_url, src) )

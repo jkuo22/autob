@@ -1,5 +1,5 @@
 import os, sys, json, asyncio
-from datetime import date, datetime
+from datetime import date
 from pathlib import Path
 import requests
 from playwright.async_api import async_playwright
