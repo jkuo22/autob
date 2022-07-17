@@ -22,9 +22,9 @@ def cleansing( dictList ):
             data.update( {item['id'] : item['value']} )
     return data
 
-def simpleCleansing( findAll_input ):
+def simpleCleansing( dictList ):
     return dict(
-        ( item['name'], item.get('value','') ) for item in findAll_input
+        ( item['name'], item.get('value','') ) for item in dictList
         )
 
 cleansingStrategy = {
@@ -38,12 +38,12 @@ def logging_filing_html( function, response ):
     #with open( f'html/{function.__name__}.html', 'w' ) as file:
     #    file.write( response.text )
 
-def getSoup( url, session, func, data=None ):
+def getSoup( url, session, function, data=None ):
     if data:
         response = session.post( url, data )
     else:
         response = session.get( url )
-    logging_filing_html( func, response )
+    logging_filing_html( function, response )
     return response, htmlParser( response.text )
 
 def addShippingAddress( url, session, customer ):
