@@ -14,11 +14,11 @@ for d in dirs:
     if not Path( d ).exists():
         os.mkdir( Path('.').resolve() / Path( d ) )
 
-async def printPDF( customer ):
-    with open('setting.json','r') as file:
-        setting = json.load( file )
-        url = setting['Url']
+with open('setting.json','r') as file:
+    setting = json.load( file )
+    url = setting['Url']
 
+async def printPDF( customer ):
     with requests.Session() as session:
         quickPay, data, allPayTradeNo = addShippingAddress( url, session, customer )
         action_url, data = doAutoSubmitForm( quickPay, data, session )
@@ -44,9 +44,13 @@ async def printPDF( customer ):
                                 )
 
 async def main():
-    await asyncio.gather(
-        *( printPDF( customer ) for customer in Customer.instances
-            if customer.billday == date.today() )
-        )
+    tasks = [ printPDF( customer ) for customer in Customer.instances
+            if customer.billday == date.today() ]
+    sendPaymentNotice.send( f"autobilling activated, {len(tasks)} tasks.",
+                            document = None,
+                            sender_token = setting['token'],
+                            receiver_id = setting['jkuo_id']
+                            )
+    await asyncio.gather( *tasks )
 
 asyncio.run( main() )
