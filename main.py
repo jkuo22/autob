@@ -38,7 +38,7 @@ async def printPDF( customer ):
         await page.pdf( path=filename )
         await browser.close()
         sendPaymentNotice.send( f"'{customer.name}' payment notice generated.",
-                                filename,
+                                document = filename,
                                 sender_token = setting['token'],
                                 receiver_id = setting['receiver_id']
                                 )
