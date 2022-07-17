@@ -45,7 +45,6 @@ def getSoup( url, session, function, data=None ):
 
 def addShippingAddress( url, session, customer ):
     respQuickPay, soup = getSoup( url, session, addShippingAddress )
-
     inputORselect = re.compile( "input|select" )
     tagAttrs = [ tag.attrs for tag in soup.find_all( name=inputORselect) ]
 
@@ -54,27 +53,27 @@ def addShippingAddress( url, session, customer ):
     data.update( customer.order )
     if 'autobilling' in customer.name:
         data.update( customer.autoBillingData )
+
     allPayTradeNo = data["AllPayTradeNo"]
 
     #with open(f'json/addShippingAddress_data_{customer.name}.json','w') as fp:
     #    import json
     #    json.dump( data, fp, indent=4, ensure_ascii=False )
-
     return respQuickPay.url, data, allPayTradeNo
 
 def doAutoSubmitForm( url, data, session ):
     response, soup = getSoup( url, session, doAutoSubmitForm, data=data )
-
     action_url = soup.find(name="form").attrs['action']
     findAll_input = [ tag.attrs for tag in soup.find_all(name="input") ]
+
     data = cleansingStrategy['detail']( findAll_input )
     return action_url, data
 
 def aioCheckout( url, data, session ):
     response, soup = getSoup( url, session, aioCheckout, data=data )
-
     action = soup.find(name='form').attrs['action']
     findAll_input = [ tag.attrs for tag in soup.find_all(name='input') ]
+
     data = cleansingStrategy['simple']( findAll_input )
 
     find_script = soup.find(name='script')
@@ -93,15 +92,14 @@ def aioCheckout( url, data, session ):
 
 def rtnPaymentType( url, data, session, customer ):
     response, soup = getSoup( url, session, rtnPaymentType, data=data )
-
     action_url = soup.find(name='form').attrs['action']
     findAll_input = [ tag.attrs for tag in soup.find_all(name='input') ]
+
     data = cleansingStrategy['simple']( findAll_input )
 
     #with open(f'json/rtnPaymentType_data_{customer.name}.json', 'w') as fp:
     #    import json
     #    json.dump( data, fp, indent=4, ensure_ascii=False )
-
     return action_url, data
 
 def barcodePaymentInfo( url, data, session ):
