@@ -39,10 +39,11 @@ def logging_filing_html( function, response ):
     #    file.write( response.text )
 
 def getSoup( url, session, function, data=None ):
-    if data:
-        response = session.post( url, data )
-    else:
-        response = session.get( url )
+    #if data:
+    #    response = session.post( url, data )
+    #else:
+    #    response = session.get( url )
+    response = session.post( url, data ) if data else session.get( url )
     logging_filing_html( function, response )
     return response, htmlParser( response.text )
 
