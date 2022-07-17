@@ -75,7 +75,6 @@ def aioCheckout( url, data, session ):
     findAll_input = [ tag.attrs for tag in soup.find_all(name='input') ]
 
     data = cleansingStrategy['simple']( findAll_input )
-
     find_script = soup.find(name='script')
     RE = re.compile("var (_\w+) = '(.+)'")
     barCodePaymentID = RE.search(find_script.text).group(2)
