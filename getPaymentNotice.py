@@ -59,9 +59,9 @@ def addShippingAddress( url, session, customer ):
         data.update( customer.autoBillingData )
     allPayTradeNo = data["AllPayTradeNo"]
 
-    #with open(f'json/addShippingAddress_data_{customer.name}.json','w') as file:
+    #with open(f'json/addShippingAddress_data_{customer.name}.json','w') as fp:
     #    import json
-    #    json.dump( data, file, indent=4, ensure_ascii=False )
+    #    json.dump( data, fp, indent=4, ensure_ascii=False )
 
     return respQuickPay.url, data, allPayTradeNo
 
@@ -101,9 +101,9 @@ def rtnPaymentType( url, data, session, customer ):
     findAll_input = [ tag.attrs for tag in soup.find_all(name='input') ]
     data = cleansingStrategy['simple']( findAll_input )
 
-    #with open(f'json/rtnPaymentType_data_{customer.name}.json', 'w') as file:
+    #with open(f'json/rtnPaymentType_data_{customer.name}.json', 'w') as fp:
     #    import json
-    #    json.dump( data, file, indent=4, ensure_ascii=False )
+    #    json.dump( data, fp, indent=4, ensure_ascii=False )
 
     return action_url, data
 
