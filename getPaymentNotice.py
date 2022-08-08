@@ -35,11 +35,12 @@ cleansingStrategy = {
 def logging_filing_html( function, response ):
     """ logging whether the function get called and write html file. """
     logger.info('"%s" called, getting %s', function.__name__, response.url )
-    #with open( f'html/{function.__name__}.html', 'w' ) as file:
-    #    file.write( response.text )
+    with open( f'html/{function.__name__}.html', 'w' ) as file:
+        file.write( response.text )
 
 def getSoup( url, session, function, data=None ):
-    response = session.post( url, data ) if data else session.get( url )
+    print( '###', function.__name__, '>>>', url )
+    response = session.post( url, data, allow_redirects=True ) if data else session.get( url, allow_redirects=True )
     logging_filing_html( function, response )
     return response, htmlParser( response.text )
 
@@ -59,6 +60,7 @@ def addShippingAddress( url, session, customer ):
     #with open(f'json/addShippingAddress_data_{customer.name}.json','w') as fp:
     #    import json
     #    json.dump( data, fp, indent=4, ensure_ascii=False )
+    print( '##### respQuickPay.url', respQuickPay.url )
     return respQuickPay.url, data, allPayTradeNo
 
 def doAutoSubmitForm( url, data, session ):
@@ -67,9 +69,12 @@ def doAutoSubmitForm( url, data, session ):
     findAll_input = [ tag.attrs for tag in soup.find_all(name="input") ]
 
     data = cleansingStrategy['detail']( findAll_input )
+    #print( '##### action_url:', action_url )
+    print( '##### response.url:', response.url )
     return action_url, data
 
 def aioCheckout( url, data, session ):
+    #url = "https://payment.ecpay.com.tw/Cashier/AioCheckOut"
     response, soup = getSoup( url, session, aioCheckout, data=data )
     action = soup.find(name='form').attrs['action']
     findAll_input = [ tag.attrs for tag in soup.find_all(name='input') ]
@@ -86,6 +91,7 @@ def aioCheckout( url, data, session ):
                         .replace('true', '"true"') )
 
     ecpayData = find_CurntDomain( soup.find(name='script', id="ECPayData") )
+    #print( '#### ecpayData', ecpay)
     action_url = ecpayData['CurrentDomain'] + action
     return action_url, data
 
