@@ -1,3 +1,6 @@
+import re
+RE = re.compile('\d+')
+
 class Subscription:
     def __init__(self, base:int=0, adv:int=0, billday=''):
         self.base = base
@@ -61,6 +64,7 @@ class Customer( Subscription ):
     instances = []
 
     def __init__(self, name, orderName, **kwargs ):
+        assert not RE.search( orderName ), f"digit in orderName not allowed."
         super().__init__( **kwargs )
         self.name = name
         self.__class__.instances.append(self)
