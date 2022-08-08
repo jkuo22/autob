@@ -40,7 +40,7 @@ def logging_filing_html( function, response ):
 
 def getSoup( url, session, function, data=None ):
     print( '###', function.__name__, '>>>', url )
-    response = session.post( url, data, allow_redirects=True ) if data else session.get( url, allow_redirects=True )
+    response = session.post( url, data ) if data else session.get( url )
     logging_filing_html( function, response )
     return response, htmlParser( response.text )
 
@@ -60,7 +60,7 @@ def addShippingAddress( url, session, customer ):
     #with open(f'json/addShippingAddress_data_{customer.name}.json','w') as fp:
     #    import json
     #    json.dump( data, fp, indent=4, ensure_ascii=False )
-    print( '##### respQuickPay.url', respQuickPay.url )
+    #print( '##### respQuickPay.url', respQuickPay.url )
     return respQuickPay.url, data, allPayTradeNo
 
 def doAutoSubmitForm( url, data, session ):
@@ -70,7 +70,7 @@ def doAutoSubmitForm( url, data, session ):
 
     data = cleansingStrategy['detail']( findAll_input )
     #print( '##### action_url:', action_url )
-    print( '##### response.url:', response.url )
+    #print( '##### response.url:', response.url )
     return action_url, data
 
 def aioCheckout( url, data, session ):
