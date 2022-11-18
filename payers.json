@@ -40,6 +40,30 @@
         "charge": true
     },
     {
+        "name": "maxxx188-c",
+        "order": {
+            "orderName": "MAX",
+            "base": 2,
+            "adv": 0,
+            "billday": 8
+        },
+        "rotation": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+        ],
+        "charge": true
+    },
+    {
         "name": "grace",
         "order": {
             "orderName": "Grace",
