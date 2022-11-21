@@ -1,5 +1,4 @@
-setting.json
-payers.json
+*.json
 pdf
 json
 html
