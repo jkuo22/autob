@@ -140,21 +140,15 @@
         "order": {
             "orderName": "LV",
             "base": 0,
-            "adv": 1,
+            "adv": 2,
             "billday": 3
         },
         "rotation": [
-            1,
             2,
-            3,
             4,
-            5,
             6,
-            7,
             8,
-            9,
             10,
-            11,
             12
         ],
         "charge": true
