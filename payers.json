@@ -141,16 +141,17 @@
             "orderName": "LV",
             "base": 0,
             "adv": 2,
-            "billday": null
+            "billday": 3
         },
         "rotation": [
             2,
             4,
             6,
             8,
-            10
+            10,
+            12
         ],
-        "charge": true
+        "charge": false
     },
     {
         "name": "autobilling_test",
