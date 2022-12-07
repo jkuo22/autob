@@ -154,27 +154,6 @@
     "charge": true
   },
   {
-    "name": "hamburger-d",
-    "order": {
-      "orderName": "Hamburger",
-      "base": 0,
-      "adv": 1,
-      "billday": 1
-    },
-    "rotation": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9
-    ],
-    "charge": true
-  },
-  {
     "name": "autobilling",
     "order": {
       "orderName": "自動繳費單測試",
@@ -197,5 +176,29 @@
       12
     ],
     "charge": false
+  },
+  {
+    "name": "hamburger-d",
+    "order": {
+      "orderName": "Hamburger",
+      "base": 0,
+      "adv": 1,
+      "billday": 1
+    },
+    "rotation": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "charge": true
   }
 ]
