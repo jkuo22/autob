@@ -22,4 +22,5 @@ def appendPayer( rotation, name, orderName, base, adv, billday ):
 
 for payer in loadPayers:
     if payer['charge']:
+        #print( payer['name'] )
         appendPayer( payer['rotation'], payer['name'], **payer['order'] )
