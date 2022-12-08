@@ -64,12 +64,12 @@
     "charge": true
   },
   {
-    "name": "maxxx188-c",
+    "name": "grace",
     "order": {
-      "orderName": "MAX",
-      "base": 2,
-      "adv": 0,
-      "billday": 8
+      "orderName": "Grace",
+      "base": 0,
+      "adv": 1,
+      "billday": 10
     },
     "rotation": [
       1,
@@ -85,7 +85,7 @@
       11,
       12
     ],
-    "charge": true
+    "charge": false
   },
   {
     "name": "ding",
@@ -112,30 +112,6 @@
     "charge": true
   },
   {
-    "name": "grace",
-    "order": {
-      "orderName": "Grace",
-      "base": 0,
-      "adv": 1,
-      "billday": 10
-    },
-    "rotation": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
-    "charge": false
-  },
-  {
     "name": "lv",
     "order": {
       "orderName": "LV",
@@ -149,6 +125,30 @@
       6,
       8,
       10,
+      12
+    ],
+    "charge": true
+  },
+  {
+    "name": "hamburger-d",
+    "order": {
+      "orderName": "Hamburger",
+      "base": 0,
+      "adv": 1,
+      "billday": 1
+    },
+    "rotation": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
       12
     ],
     "charge": true
@@ -170,20 +170,17 @@
       6,
       7,
       8,
-      9,
-      10,
-      11,
-      12
+      9
     ],
     "charge": false
   },
   {
-    "name": "hamburger-d",
+    "name": "maxxx188-c",
     "order": {
-      "orderName": "Hamburger",
-      "base": 0,
-      "adv": 1,
-      "billday": 1
+      "orderName": "MAX",
+      "base": 1,
+      "adv": 0,
+      "billday": 8
     },
     "rotation": [
       1,
